@@ -26,7 +26,7 @@ class UserController extends Controller
             $result[] = $value;
         }
 
-        return view('users.index',compact('result', 'data'))
+        return view('users.index',compact('result'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
     }
     
@@ -58,9 +58,6 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
-        $request->title = isset($request->title) ? $request->get('title') : null;
-        $request->note = isset($request->note) ? $request->get('note') : null;
-
         $input = $request->all();
         $input['password'] = Hash::make($input['password']);
     
@@ -109,8 +106,6 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $user = User::find($id)->first();
-        $user->title = $request->get('title');
-        $user->note = $request->get('note');
         $user->update();
         
         return redirect()->route('users.index')

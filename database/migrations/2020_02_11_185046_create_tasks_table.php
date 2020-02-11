@@ -19,6 +19,8 @@ class CreateTasksTable extends Migration
             $table->string('title');
             $table->text('description');
             $table->string('file');
+            $table->enum('status', \App\Enum\StatusEnum::values()->toArray());
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }
