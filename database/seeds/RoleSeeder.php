@@ -14,6 +14,6 @@ class RoleSeeder extends Seeder
     public function run()
     {
         $UserRole = Role::create(['name' => 'User']);
-        $UserRole->givePermissionTo('transaction-list');
+        $UserRole->givePermissionTo('user-list');
     }
 }
