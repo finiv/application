@@ -25,4 +25,5 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('tasks', 'TaskController')->except(['create']);
     Route::get('task/{id}', 'TaskController@create')->name('tasks.create');
     Route::get('status/{id}', 'TaskController@changeStatus')->name('status');
+    Route::get('/download/{task}', 'DownloadController@download')->name('download');
 });

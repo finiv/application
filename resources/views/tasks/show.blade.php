@@ -20,7 +20,8 @@
                 <h2>Description : {{ $task->description }}</h2>
                 <h2> Status : {{ $task->status }}</h2>
                 <h2>File path : {{ $task->file }}</h2>
-                <a href="">Download file</a>
+                
+                <a href="{{ route('download', ['task' => $task->id]) }}">Download file</a>
             </div>
         </div>
 @endsection
