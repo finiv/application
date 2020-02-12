@@ -17,7 +17,6 @@ class CreateTasksTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('project_id');
             $table->string('title');
-            $table->text('description');
             $table->string('file');
             $table->enum('status', \App\Enum\StatusEnum::values()->toArray());
             $table->text('description')->nullable();

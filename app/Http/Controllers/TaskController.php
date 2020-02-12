@@ -43,9 +43,34 @@ class TaskController extends Controller
         return redirect('/projects')->with('success', 'Your task was successfully created');
     }
 
-    public function create()
+    public function create($id)
     {
-        $projects = Project::all();
-        return view('tasks.create', compact('projects'));
+        $project = Project::find($id);
+        
+        return view('tasks.create', ['id' => $project->id]);
+    }
+
+    public function show($task)
+    {
+        $task = Task::find($task);
+
+        return view('tasks.show', ['task' => $task]);
+    }
+
+    public function changeStatus(Request $request, $id)
+    {
+        $task = Task::find($id);
+        
+        switch ($task->status){
+            case 1:
+                $task->status = 2;
+                break;
+            case 2:
+                $task->status = 3;
+                break;
+        }
+        $task->update();
+
+        return redirect('/projects/' . $task->project->id)->with('success', 'Status was changed successfuly');
     }
 }

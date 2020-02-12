@@ -22,5 +22,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('roles','RoleController');
     Route::resource('users','UserController');
     Route::resource('projects', 'ProjectController');
-    Route::resource('tasks', 'TaskController');
+    Route::resource('tasks', 'TaskController')->except(['create']);
+    Route::get('task/{id}', 'TaskController@create')->name('tasks.create');
+    Route::get('status/{id}', 'TaskController@changeStatus')->name('status');
 });
