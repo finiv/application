@@ -67,12 +67,11 @@ class TaskController extends Controller
     
     public function update(Request $request, Task $task)
     {
-        $item = Task::find($task);
         try {
             if($request->hasFile('file')) {
-                $path = Storage::disk('public')->put($this->realFilePath, $request->file('file'));
+                $fileName = $task->file;
                 $task->update([
-                    'file' => $path
+                    'file' => $fileName
                 ]);
             }
         } catch (\Exception $e) {

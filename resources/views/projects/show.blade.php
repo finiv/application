@@ -24,7 +24,6 @@
                         <td>Task status</td>
                         <td>File</td>
                         <td>Action</td>
-                        <td>QWE</td>
                     </tr>
                     </thead>
                     <tbody>

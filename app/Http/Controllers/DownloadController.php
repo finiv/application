@@ -12,8 +12,8 @@ class DownloadController extends Controller
     {
         $fileName = explode('/', $task->file);
         
-        $filePath = 'storage/files/' . $fileName[2];
-        
-        return response()->download($filePath)->redirect('/projects/' . $task->project->id);
+        $filePath = 'storage/files/' . end($fileName);
+
+        return response()->download($filePath);
     }
 }
