@@ -22,6 +22,7 @@
                 <h2>File path : {{ $task->file }}</h2>
                 
                 <a href="{{ route('download', ['task' => $task->id]) }}">Download file</a>
+                <a href="{{ route('tasks.edit', ['task' => $task]) }}">Edit task</a>
             </div>
         </div>
 @endsection

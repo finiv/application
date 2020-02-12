@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Task;
 use App\Project;
+use App\Http\Repositories\TaskRepository;
+use Illuminate\Support\Facades\Storage;
 
 class TaskController extends Controller
 {
@@ -55,6 +57,36 @@ class TaskController extends Controller
         $task = Task::find($task);
 
         return view('tasks.show', ['task' => $task]);
+    }
+
+    public function edit($task)
+    {
+        $task = Task::find($task);
+        return view('tasks.edit', ['task' => $task]);
+    }
+    
+    public function update(Request $request, Task $task)
+    {
+        $item = Task::find($task);
+        try {
+            if($request->hasFile('file')) {
+                $path = Storage::disk('public')->put($this->realFilePath, $request->file('file'));
+                $task->update([
+                    'file' => $path
+                ]);
+            }
+        } catch (\Exception $e) {
+            return [
+                'warning' => 'Task edited, but file does not uploaded on server. Please try again.'
+            ];
+        }
+        $task->title = $request->title;
+        $task->description = $request->description;
+        $task->status = $request->status;
+
+        $task->save();
+
+        return redirect('/projects/' . $task->project->id)->with('success', 'Task was updated successfuly');
     }
 
     public function changeStatus(Request $request, $id)
