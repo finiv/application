@@ -18,6 +18,11 @@
         <div>
             <a style="margin: 19px;" href="{{ route('projects.create') }}" class="btn btn-primary">New project</a>
         </div>
+        @can('user-list')
+        <div>
+            <a href="users" class="btn btn-primary">Jump to users table</a>
+        </div>
+        @endcan
         <div class="col-sm-12">
                 <table class="table table-striped">
                     <thead>
@@ -41,6 +46,17 @@
                     @endforeach
                     </tbody>
                 </table>
+                <div class="row">
+                    <form action="{{ route('report') }}" method="post">
+                    @csrf
+                        <label for="email">Email for reporting</label>
+                        <input type="email" name="email" id="email_report" class="form-control"/>
+                        <!-- <a href="" id="email_submit">Save</a> -->
+                        <button type="submit"></button>
+                        
+                    </form>
+                </div>
+                
             </div>
             {{ $data->links() }}
         </div>

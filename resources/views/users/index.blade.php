@@ -7,6 +7,9 @@
 @stop
 
 @section('content')
+@can('user-list')
+
+
     <div class="row">
         <div class="col-sm-12">
             @if(session()->get('success'))
@@ -17,6 +20,9 @@
         </div>
         <div>
             <a style="margin: 19px;" href="{{ route('users.create') }}" class="btn btn-primary">New user</a>
+        </div>
+        <div>
+            <a href="projects" class="btn btn-primary">Back to projects</a>
         </div>
         <div class="col-sm-12">
                 <table class="table table-striped">
@@ -35,7 +41,7 @@
                             <th>{{ $item['name'] }}</th>
                             <th>{{ $item['email'] }}</th>
                             <td style="display:flex;">
-                            <a class="btn btn-danger" href="">Deleteuser</a>
+                            <a class="btn btn-danger" href="{{ route('users.destroy', ['id' => $item->id]) }}">Delete</a>
                             @csrf
                             </form>
                             </td>
@@ -44,6 +50,6 @@
                     </tbody>
                 </table>
             </div>
-            {{ $data->links() }}
         </div>
+        @endcan
 @endsection

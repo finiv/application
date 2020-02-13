@@ -37,8 +37,8 @@
                         <label for="status">File:</label>
                         <select name="status" id="">
                             <option value="1">{{ \App\Enum\StatusEnum::getDescription(1) }}</option>
-                            <option value="1">{{ \App\Enum\StatusEnum::getDescription(2) }}</option>
-                            <option value="1">{{ \App\Enum\StatusEnum::getDescription(3) }}</option>
+                            <option value="2">{{ \App\Enum\StatusEnum::getDescription(2) }}</option>
+                            <option value="3">{{ \App\Enum\StatusEnum::getDescription(3) }}</option>
                         </select>
                     </div>
                     <button type="submit" class="btn btn-primary">Update task</button>

@@ -29,8 +29,6 @@ class ProjectController extends Controller
     {
         $project = Project::find($project)->first();
         
-        // $tasks = Project::getAllTasks($project->id);
-
         return view('projects.show', compact('project'));
     }
 
@@ -40,8 +38,9 @@ class ProjectController extends Controller
         $project = Project::create(['project_name' => $projectName]);
         $project->save();
 
+        
         return redirect()->route('projects.index')
-                         ->with('success','User created successfully');
+                         ->with('success','Project created successfully');
     }
 
     public function update(UpdateProjectRequest $request, Project $project)

@@ -47,6 +47,7 @@
                 </table>
                 <div>
                     <a style="margin: 19px;" href="{{ route('tasks.create', ['id' => $project->id]) }}" class="btn btn-primary">New task</a>
+                    <a href="{{ url('projects') }}" class="btn btn-primary">Back</a>
                 </div>
             </div>
         </div>
