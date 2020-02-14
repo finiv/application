@@ -10,12 +10,10 @@ use App\Http\Repositories\TaskRepository;
 
 class TaskController extends Controller
 {
-    public $task;
-
     public function store(Request $request)
     {
-        $create = new TaskRepository;
-        $create->create($request);
+        $item = new TaskRepository;
+        $item->create($request);
 
         return redirect('/projects')
                ->with('success', 'Your task was successfully created');
@@ -43,8 +41,8 @@ class TaskController extends Controller
     
     public function update(Request $request, Task $task)
     {
-        $update = New TaskRepository;
-        $update->update($request, $task);
+        $item = New TaskRepository;
+        $item->update($request, $task);
      
         return redirect('/projects/' . $task->project->id)->with('success', 'Task was updated successfuly');
     }
@@ -53,9 +51,16 @@ class TaskController extends Controller
     {
         $task = Task::find($id);
 
-        $status = new TaskRepository;
-        $status->status($id);
+        $item = new TaskRepository;
+        $item->status($id);
 
         return redirect('/projects/' . $task->project->id)->with('success', 'Status was changed successfuly');
+    }
+
+    public function destroy(Task $task)
+    {
+        $task->delete();
+
+        return redirect('/projects/' . $task->project->id)->with('success', 'Tas was deleted successfuly');
     }
 }

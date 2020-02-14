@@ -38,25 +38,17 @@
                             <th>{{ $item['id'] }}</th>
                             <th><a href="{{ route('projects.show', ['project' => $item['id']]) }}">{{ $item['project_name'] }}</a></th>
                             <td style="display:flex;">
-                            <a class="btn btn-danger" href="">Delete project</a>
+                            <a class="btn btn-primary" href="{{ route('projects.edit', $item) }}">Edit</a>
+                            <form action="{{ route('projects.destroy', ['project' => $item['id']]) }}" method="post">
+                            @method('DELETE')
+                            <button class="btn btn-danger" type="submit" >Delete</button>
                             @csrf
                             </form>
                             </td>
                         </tr>
                     @endforeach
                     </tbody>
-                </table>
-                <div class="row">
-                    <form action="{{ route('report') }}" method="post">
-                    @csrf
-                        <label for="email">Email for reporting</label>
-                        <input type="email" name="email" id="email_report" class="form-control"/>
-                        <!-- <a href="" id="email_submit">Save</a> -->
-                        <button type="submit"></button>
-                        
-                    </form>
-                </div>
-                
+                </table>                
             </div>
             {{ $data->links() }}
         </div>

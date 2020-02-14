@@ -40,16 +40,29 @@ class ProjectController extends Controller
 
         
         return redirect()->route('projects.index')
-                         ->with('success','Project created successfully');
+                         ->with('success','Project was created successfully');
+    }
+    
+    public function edit($project)
+    {
+        $project = Project::find($project);
+        return view('projects.edit', ['project' => $project]);
     }
 
     public function update(UpdateProjectRequest $request, Project $project)
     {
-
+        $project->project_name = $request->get('project_name');
+        $project->save();
+        
+        return redirect()->route('projects.index')
+                         ->with('success','Project was updated successfully');
     }
 
     public function destroy(Project $project)
     {
+        $project->delete();
 
+        return redirect()->route('projects.index')
+                        ->with('success','Project was deleted successfully');
     }
 }

@@ -20,17 +20,19 @@
                     </div><br/>
                 @endif
                 <form method="post" action="{{ route('users.update', ['user' => $user]) }}" enctype="multipart/form-data">
+                    @method('PATCH')
                     @csrf
-                    <input type="hidden" name="_method" value="put">
                     <div class="form-group">
-                        <label for="title">Title</label>
-                        <input type="text" class="form-control" name="title">
+                        <label for="name">Name:</label>
+                        <input type="text" class="form-control" name="name" value="{{ $user->name }}"/>
+                    </div>
                     </div>
                     <div class="form-group">
-                        <label for="note">Note:</label>
-                        <textarea name="note" id="" cols="30" class="form-control" rows="10"></textarea>
+                        <label for="email">Email:</label>
+                        <input type="text" class="form-control" name="email" value="{{ $user->email }}"/>
                     </div>
-                    <button type="submit" class="btn btn-primary">Add User</button>
+                    <button type="submit" class="btn btn-primary">Update User</button>
+                    <a href="/users" class="btn btn-primary">Back</a>
                 </form>
             </div>
         </div>

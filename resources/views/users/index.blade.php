@@ -41,9 +41,13 @@
                             <th>{{ $item['name'] }}</th>
                             <th>{{ $item['email'] }}</th>
                             <td style="display:flex;">
-                            <a class="btn btn-danger" href="{{ route('users.destroy', ['id' => $item->id]) }}">Delete</a>
+                            <form method="post" action="{{ route('users.destroy', ['user' => $item->id]) }}">
+                            @method('DELETE')
+                                <button class="btn btn-danger">Delete</button>
+                            
                             @csrf
                             </form>
+                            <a href="{{ route('users.edit', ['user' => $item['id']]) }}" class="btn btn-primary">Edit user</a>
                             </td>
                         </tr>
                     @endforeach

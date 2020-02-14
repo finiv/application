@@ -34,13 +34,18 @@
                               {{ $task->title }}</a></th>
                             <th>{{ $task->description }}</th>
                             <th class="status">{{\App\Enum\StatusEnum::getDescription($task->status)}}</th>
-                            <td>{{ $task->file }}</td>
+                            <th>{{ $task->file }}</th>
+                            
+                            <th>
                             @if($task->status == 1 || $task->status == 2)
-                            <td style="display:flex;">
-                            <a class="sub" href="{{route('status', ['id' => $task->id, 'request' => $task->id])}}" id="sub">Change status</a>
+                                <a class="btn btn-primary" href="{{route('status', ['id' => $task->id, 'request' => $task->id])}}" id="sub">Change status</a>
                             @endif
-                            @csrf
-                            </td>
+                                <form method="post" action="{{ route('tasks.destroy', ['task' => $task]) }}">
+                                @method('DELETE')
+                                @csrf
+                                    <button class="btn btn-danger" type="submit" >Delete</button>
+                                </form>
+                            </th>
                         </tr>
                     @endforeach
                     </tbody>
