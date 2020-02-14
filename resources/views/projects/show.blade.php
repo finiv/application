@@ -45,6 +45,11 @@
                                 @csrf
                                     <button class="btn btn-danger" type="submit" >Delete</button>
                                 </form>
+                                <form action="{{ route('tasks.edit', ['task' => $task]) }}">
+                                @csrf
+                                <input type="hidden" name="project_id" value="{{ $project->id }}">
+                                <button class="btn btn-primary">Edit task</button>
+                                </form>
                             </th>
                         </tr>
                     @endforeach

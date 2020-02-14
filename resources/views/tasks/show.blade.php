@@ -20,9 +20,9 @@
                 <h1>{{ $task->title }} info:</h1>
                 <h2>Description : {{ $task->description }}</h2>
                 <h2> Status : {{ \App\Enum\StatusEnum::getDescription($task->status) }}</h2>
-                <h2>File name : {{ $task->name }}</h2>
-                
+                @if(isset($task->file))
                 <a href="{{ route('download', ['task' => $task->id]) }}" class="btn btn-primary">Download file</a>
+                @endif
                 <a href="{{ route('tasks.edit', ['task' => $task]) }}" class="btn btn-primary">Edit task</a>
                 <a href="{{ url('projects/' . $task->project->id) }}" class="btn btn-primary">Back</a>
             </div>

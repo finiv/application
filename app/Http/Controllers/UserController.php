@@ -26,8 +26,7 @@ class UserController extends Controller
             $result[] = $value;
         }
 
-        return view('users.index',compact('result'))
-            ->with('i', ($request->input('page', 1) - 1) * 5);
+        return view('users.index',compact('result', 'data'));
     }
     
     /**
@@ -41,15 +40,6 @@ class UserController extends Controller
         return view('users.create',compact('roles'));
     }
     
-    public function search(Request $request)
-    {
-        $search = $request->get('search');
-
-        $users = DB::table('users')->where('name', 'like', '%' . $search . '%')->paginate(5);
-
-        return view('users.index', ['users' => $users]);
-    }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -105,9 +95,11 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $user = User::find($id)->first();
-        $user->update();
+        $user = User::find($id);
         
+        $user->name = $request->get('name');
+        $user->email = $request->get('email');
+        $user->save();
         return redirect()->route('users.index')
                         ->with('success','User updated successfully');
     }

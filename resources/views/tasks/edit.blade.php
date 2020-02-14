@@ -30,10 +30,6 @@
                         <input type="text" class="form-control" name="description" value="{{ $task->description }}"/>
                     </div>
                     <div class="form-group">
-                        <label for="file">File:</label>
-                        <input type="file" class="form-control" name="file"/>
-                    </div>
-                    <div class="form-group">
                         <label for="status">File:</label>
                         <select name="status" id="">
                             <option value="1">{{ \App\Enum\StatusEnum::getDescription(1) }}</option>

@@ -5,18 +5,22 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Project;
 use App\Http\Requests\{StoreProjectRequest, UpdateProjectRequest};
+use Illuminate\Support\Facades\Mail;
+use App\Mail\NewProjectNotification;
+use App\Notification;
 
 class ProjectController extends Controller
 {
     public function index(Request $request)
     {
         $data = Project::orderProjects();
+        $email = Notification::first();
         $result = [];      
         foreach($data as $key => $value){
             $result[] = $value;
         }
 
-        return view('projects.index',compact('result', 'data'))
+        return view('projects.index',compact('result', 'data', 'email'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
     }
 
@@ -39,6 +43,7 @@ class ProjectController extends Controller
         $project->save();
 
         
+
         return redirect()->route('projects.index')
                          ->with('success','Project was created successfully');
     }

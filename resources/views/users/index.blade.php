@@ -54,6 +54,7 @@
                     </tbody>
                 </table>
             </div>
+            {{ $data->links() }}
         </div>
         @endcan
 @endsection

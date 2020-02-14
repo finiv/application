@@ -15,12 +15,14 @@
                 </div>
             @endif
         </div>
+        <div style="display:flex;">
         <div>
             <a style="margin: 19px;" href="{{ route('projects.create') }}" class="btn btn-primary">New project</a>
         </div>
         @can('user-list')
         <div>
             <a href="users" class="btn btn-primary">Jump to users table</a>
+        </div>
         </div>
         @endcan
         <div class="col-sm-12">
@@ -48,7 +50,13 @@
                         </tr>
                     @endforeach
                     </tbody>
-                </table>                
+                </table>    
+                <form action="{{ route('report') }}" method="post" >
+                @csrf
+                    <label for="notification_email">Update email for notifications</label>
+                    <input type="text" name="notification_email" class="form-control" value="{{ $email->notification_email ?? '' }}"> 
+                    <button type="submit" class="btn btn-primary">Save email</button> 
+                </form>
             </div>
             {{ $data->links() }}
         </div>

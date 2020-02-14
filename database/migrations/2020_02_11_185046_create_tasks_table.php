@@ -17,10 +17,12 @@ class CreateTasksTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('project_id');
             $table->string('title');
-            $table->string('file');
+            $table->string('file')->nullable();
             $table->enum('status', \App\Enum\StatusEnum::values()->toArray());
             $table->text('description')->nullable();
             $table->timestamps();
+
+            $table->foreign('project_id')->references('id')->on('projects')->onDelete('cascade');
         });
     }
 

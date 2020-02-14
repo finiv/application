@@ -10,7 +10,7 @@ class TaskRepository
    public function create($request)
    {
         $realFilePath = 'app/public/files';
-
+        $file = $request->file('file');
         $project_id = $request->get('project_id');
         $title = $request->get('title');
         $description = $request->get('description');
@@ -18,10 +18,13 @@ class TaskRepository
         $urlPath = null;
 
         if(isset($request->file)){
-            $file = $request->file('file');
             $extension = $file->getClientOriginalExtension();
             $fileName = time() . '.' . $extension;
             $urlPath = 'storage/files' . DIRECTORY_SEPARATOR . $fileName;
+        }
+
+        if($request->file != null){
+            $file->move(storage_path($realFilePath), $fileName);
         }
 
         $task = new Task([
@@ -34,31 +37,15 @@ class TaskRepository
 
         $task->save();
         
-        if($file != null){
-            $file->move(storage_path($realFilePath), $fileName);
-        }
+        
     }
 
     public function update($request, $task)
     {
-        $urlPath = $task->file;
-
-        try {
-            if($request->hasFile('file')) {
-                $fileName = $task->file;
-                $task->update([
-                    'file' => $urlPath
-                ]);
-            }
-        } catch (\Exception $e) {
-            return [
-                'warning' => 'Task edited, but file does not uploaded on server. Please try again.'
-            ];
-        }
         $task->title = $request->title;
         $task->description = $request->description;
         $task->status = $request->status;
-
+        
         $task->save();
     }
 
